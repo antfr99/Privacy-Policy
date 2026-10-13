@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delete your account</title>
+<meta name="description" content="Delete your My Investments, My Entertainment and Our Timeline account and everything linked to it.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main>
+<header>
+<p class="kicker">My Investments · My Entertainment · Our Timeline</p>
+<h1>Delete your account</h1>
+<p class="lead">The three apps by Antonio Friguglietti share one optional account. Deleting it removes the account and
+everything linked to it from all three apps, at once and for good.</p>
+</header>
+
+<section>
+<h2>What is deleted</h2>
+<ul>
+<li>Your sign-in email address and public name.</li>
+<li>My Investments: your Community ratings, comments, replies, endorsements and reports, and your synced journal and watchlist.</li>
+<li>My Entertainment: the recommendations you sent and received, and your reports.</li>
+<li>Our Timeline: your posted lines, comments and experiences, your “thoughtful” and “helpful” marks, and your reports.</li>
+<li>Your blocks and your agreement to the Community / Social rules.</li>
+</ul>
+<p>Nothing is kept after deletion. What an app stored only on your phone (settings, notes, drafts, API keys) stays there until you
+uninstall the app.</p>
+</section>
+
+<section>
+<h2>Delete it in the app</h2>
+<p>Open any of the apps, sign in, and tap <strong>Delete my account</strong> — under your account on the Community / Social tab, or in About.</p>
+</section>
+
+<section>
+<h2>Delete it here</h2>
+<p>No app needed. We email you a one-time code to prove the account is yours.</p>
+<form id="step-email">
+  <label for="email">Email address you sign in with</label>
+  <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+  <button type="submit">Email me a code</button>
+</form>
+<form id="step-code" hidden>
+  <label for="code">Code from the email (it comes from “Investment Playbook”)</label>
+  <input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" required placeholder="123456">
+  <button type="submit">Confirm code</button>
+</form>
+<form id="step-confirm" hidden>
+  <p id="who"></p>
+  <label><input id="sure" type="checkbox" style="width:auto"> I understand this can’t be undone.</label>
+  <button type="submit" class="danger">Delete my account</button>
+</form>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+</section>
+
+<section>
+<h2>Or ask by email</h2>
+<p>Write to <a href="mailto:frigug@gmail.com?subject=Delete%20my%20account">frigug@gmail.com</a> from the address you sign in with,
+asking for your account to be deleted. It will be deleted within 30 days and you’ll get a reply when it’s done.</p>
+</section>
+
+<footer><p>© 2026 Antonio Friguglietti · <a href="index.html">Privacy policies</a></p></footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+// The same Supabase project and publishable key the apps ship with. delete_my_account() deletes only the signed-in
+// person's own account (see supabase/safety.sql in the My Investments repo).
+const sb = supabase.createClient('https://ejznlnktzghrmpyivfvv.supabase.co', 'sb_publishable_njUVDzj6DhLKcrL7mnvhtw_iF1xAroH',
+  { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+const $ = id => document.getElementById(id);
+const say = (text, kind = '') => { $('status').textContent = text; $('status').className = 'status ' + kind; };
+const busy = (form, on) => form.querySelector('button').disabled = on;
+let email = '';
+
+$('step-email').addEventListener('submit', async e => {
+  e.preventDefault(); busy(e.target, true); say('Sending…');
+  email = $('email').value.trim().toLowerCase();
+  // shouldCreateUser: false, so this page never creates an account.
+  const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false } });
+  busy(e.target, false);
+  if (error) {
+    say(/signups not allowed|not found|otp_disabled/i.test(error.message)
+      ? 'There is no account with that email address.' : /rate|seconds/i.test(error.message)
+      ? 'Please wait a minute before asking for another code.' : error.message, 'err');
+    return;
+  }
+  $('step-email').hidden = true; $('step-code').hidden = false; $('code').focus();
+  say(`Code sent to ${email}. Check your spam folder if it isn’t there within a minute.`, 'ok');
+});
+
+$('step-code').addEventListener('submit', async e => {
+  e.preventDefault(); busy(e.target, true); say('Checking…');
+  const { data, error } = await sb.auth.verifyOtp({ email, token: $('code').value.replace(/\s/g, ''), type: 'email' });
+  busy(e.target, false);
+  if (error || !data.session) { say('That code didn’t match or has expired. Ask for a new one.', 'err'); return; }
+  const { data: p } = await sb.from('pb_profiles').select('handle').eq('user_id', data.session.user.id).maybeSingle();
+  $('who').textContent = `Signed in as ${email}${p ? ` (public name @${p.handle})` : ''}.`;
+  $('step-code').hidden = true; $('step-confirm').hidden = false; say('');
+});
+
+$('step-confirm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!$('sure').checked) { say('Tick the box to confirm.', 'err'); return; }
+  busy(e.target, true); say('Deleting…');
+  const { error } = await sb.rpc('delete_my_account');
+  if (error) {
+    busy(e.target, false);
+    say(`Not deleted: ${error.message}. Please write to frigug@gmail.com instead.`, 'err');
+    return;
+  }
+  await sb.auth.signOut({ scope: 'local' }).catch(() => {});
+  $('step-confirm').hidden = true;
+  say('Your account and everything linked to it have been deleted.', 'ok');
+});
+</script>
+</body>
+</html>

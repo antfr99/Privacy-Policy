@@ -1,6 +1,6 @@
 # Privacy policies
 
-Public privacy policies and the account-deletion page for Antonio Friguglietti's Android apps — what Google Play asks
+Public privacy policies and the account-deletion page for the MyThoughts Apps Android apps — what Google Play asks
 for in the store listing (*Privacy policy URL*) and in the Data safety form (*Delete account URL*).
 
 | Page | URL (GitHub Pages) |

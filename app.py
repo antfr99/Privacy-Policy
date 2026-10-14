@@ -17,7 +17,7 @@ PAGES = {
     "our-timeline": "Our Timeline",
     "delete-account": "Delete your account",
 }
-PAGES_URL = "https://antfr99.github.io/Privacy-Policy/"
+PAGES_URL = "https://mythoughtsaime.github.io/Privacy-Policy/"
 
 st.set_page_config(page_title="Privacy policies", page_icon="🔒", layout="centered")
 

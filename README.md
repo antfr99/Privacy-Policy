@@ -5,11 +5,11 @@ for in the store listing (*Privacy policy URL*) and in the Data safety form (*De
 
 | Page | URL (GitHub Pages) |
 |---|---|
-| All apps | https://antfr99.github.io/Privacy-Policy/ |
-| My Investments | https://antfr99.github.io/Privacy-Policy/my-investments.html |
-| My Entertainment | https://antfr99.github.io/Privacy-Policy/my-entertainment.html |
-| Our Timeline | https://antfr99.github.io/Privacy-Policy/our-timeline.html |
-| Delete an account | https://antfr99.github.io/Privacy-Policy/delete-account.html |
+| All apps | https://mythoughtsaime.github.io/Privacy-Policy/ |
+| My Investments | https://mythoughtsaime.github.io/Privacy-Policy/my-investments.html |
+| My Entertainment | https://mythoughtsaime.github.io/Privacy-Policy/my-entertainment.html |
+| Our Timeline | https://mythoughtsaime.github.io/Privacy-Policy/our-timeline.html |
+| Delete an account | https://mythoughtsaime.github.io/Privacy-Policy/delete-account.html |
 
 Contact: mythoughtsaime@gmail.com
 

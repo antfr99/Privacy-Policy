@@ -46,7 +46,7 @@ const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 const inline = s => esc(s)
   .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   .replace(/\[\+(.+?)\+\]/g, '$1').replace(/\[-(.+?)-\]/g, '$1')
-  .replace(/\b(antfr99\.github\.io\/[\w./-]+)/g, '<a href="https://$1">$1</a>')
+  .replace(/\b(mythoughtsaime\.github\.io\/[\w./-]+)/g, '<a href="https://$1">$1</a>')
   .replace(/\b([\w.+-]+@[\w-]+\.[\w.]+)\b/g, '<a href="mailto:$1">$1</a>');
 
 function block(b) {

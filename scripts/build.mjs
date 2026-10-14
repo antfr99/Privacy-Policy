@@ -69,7 +69,7 @@ const page = (title, body, description) => `<!doctype html>
 <body>
 <main>
 ${body}
-<footer><p>© 2026 MyThoughts Apps · <a href="index.html">All apps</a> · <a href="delete-account.html">Delete an account</a></p></footer>
+<footer><p>© 2026 MyThoughtsAI Apps · <a href="index.html">All apps</a> · <a href="delete-account.html">Delete an account</a></p></footer>
 </main>
 </body>
 </html>
@@ -83,7 +83,7 @@ for (const app of APPS) {
   const body = `<header>
 <p class="kicker">Privacy policy</p>
 <h1>${esc(app.name)}</h1>
-<p class="lead">For the ${esc(app.name)} Android app by MyThoughts Apps. Last updated ${esc(about.POLICY_UPDATED)}.
+<p class="lead">For the ${esc(app.name)} Android app by MyThoughtsAI Apps. Last updated ${esc(about.POLICY_UPDATED)}.
 Contact: <a href="mailto:${esc(about.CONTACT_EMAIL)}">${esc(about.CONTACT_EMAIL)}</a>.</p>
 <p class="note">This page shows the same text as the app’s About tab. To delete your account, use <strong>Delete my account</strong>
 in the app, or <a href="delete-account.html">delete it on the web</a>.</p>
@@ -96,9 +96,9 @@ ${secs.map(s => `<section id="${s.key}"><h2>${esc(s.title)}</h2>\n${s.blocks.map
 }
 
 const email = index[0].email;
-fs.writeFileSync(path.join(ROOT, 'index.html'), page('Privacy policies — MyThoughts Apps', `<header>
+fs.writeFileSync(path.join(ROOT, 'index.html'), page('Privacy policies — MyThoughtsAI Apps', `<header>
 <p class="kicker">Privacy policies</p>
-<h1>MyThoughts Apps</h1>
+<h1>MyThoughtsAI Apps</h1>
 <p class="lead">Free apps by one independent developer, with no ads, no tracking and no selling of your information.
 Contact: <a href="mailto:${esc(email)}">${esc(email)}</a>.</p>
 </header>

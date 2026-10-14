@@ -12,7 +12,7 @@
 <header>
 <p class="kicker">My Investments · My Entertainment · Our Timeline</p>
 <h1>Delete your account</h1>
-<p class="lead">The three MyThoughtsAI Apps share one optional account. Deleting it removes the account and
+<p class="lead">The three MyThoughtsAIme Apps share one optional account. Deleting it removes the account and
 everything linked to it from all three apps, at once and for good.</p>
 </header>
 
@@ -57,11 +57,11 @@ uninstall the app.</p>
 
 <section>
 <h2>Or ask by email</h2>
-<p>Write to <a href="mailto:mythoughtsai99@gmail.com?subject=Delete%20my%20account">mythoughtsai99@gmail.com</a> from the address you sign in with,
+<p>Write to <a href="mailto:mythoughtsaime@gmail.com?subject=Delete%20my%20account">mythoughtsaime@gmail.com</a> from the address you sign in with,
 asking for your account to be deleted. It will be deleted within 30 days and you’ll get a reply when it’s done.</p>
 </section>
 
-<footer><p>© 2026 MyThoughtsAI Apps · <a href="index.html">Privacy policies</a></p></footer>
+<footer><p>© 2026 MyThoughtsAIme Apps · <a href="index.html">Privacy policies</a></p></footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -108,7 +108,7 @@ $('step-confirm').addEventListener('submit', async e => {
   const { error } = await sb.rpc('delete_my_account');
   if (error) {
     busy(e.target, false);
-    say(`Not deleted: ${error.message}. Please write to mythoughtsai99@gmail.com instead.`, 'err');
+    say(`Not deleted: ${error.message}. Please write to mythoughtsaime@gmail.com instead.`, 'err');
     return;
   }
   await sb.auth.signOut({ scope: 'local' }).catch(() => {});
